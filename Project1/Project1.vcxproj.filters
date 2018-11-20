@@ -24,18 +24,24 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="map.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="items.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="hero.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="inventory.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="animation.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

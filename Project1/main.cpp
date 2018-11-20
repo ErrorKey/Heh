@@ -1,10 +1,23 @@
 //состояния игры
 // процедура ходьбы
+	// |-|-|-|-|-|
+	// |0 1 2 3|4 
+	// int a; <- переменная типа инт
+	// int *b; <- адресс в памяти, по которому лежит переменная типа инт
+	// class Imba { void Method(); 
+	//				static int Seth(); };
+	// Imba A;
+	// Imba * B;
+	// A.Method();
+	// B->Method();
+	// Imba::Seth();
+//методы изменяют состояния обьектов
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "map.h" 
+#include "tinyxml2.h" 
 #include "inventory.h"
 #include "hero.h" 
+#include "item.h"
 #include <iostream>
 
 sf::View view; //объявили sfml объект "вид", который и является камерой
@@ -13,43 +26,24 @@ void getplayercoordinateforview(float x, float y) { // функция для считывания ко
 	view.setCenter(x, y); // следим за игроком, передавая его координаты камеру
 }
 
-
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1300, 700), "403++");
 	view.reset(sf::FloatRect(0, 0, 650, 350));
-//map рисовка
-	sf::Image map_image;// объект изображения для карты
-	map_image.loadFromFile("images/tile.png");// загружаем файл для карты
-	sf::Texture map;// текстура карты
-	map.loadFromImage(map_image);// заряжаем текстуру картинкой
-	sf::Sprite s_map;// создаём спрайт для карты
-	s_map.setTexture(map);// заливаем текстуру спрайтом
-//inventory рисовка
-	sf::Image inv_image;
-	inv_image.loadFromFile("images/inventory.png");
-	sf::Texture inv_texture;
-	inv_texture.loadFromImage(inv_image);
-	sf::Sprite sprite_inv;
-	sprite_inv.setTexture(inv_texture);
-//items
-	sf::Image iitem;
-	iitem.loadFromFile("images/items.png");
-	sf::Texture titem;
-	titem.loadFromImage(iitem);
-	sf::Sprite sitem;
-	sitem.setTexture(titem);
-	sitem.setTextureRect(sf::IntRect(0, 0, 16, 16));
+	//window.setVerticalSyncEnabled(true); //вертикальная синхронизация
 
-
-
+	Inventory inventory;
+	Item item2(2);
+	inventory.placeItem(item2);
 	sf::Clock clock; //привязка времени не к процессору, а к машинному времени
 	double CurrentFrame = 0;//хранит текущий кадр
 
-	Hero h("player.png", 150, 150, 16.0, 32.0);//создаем объект p класса player,задаем "hero.png" как имя файла+расширение,
-	//далее координата Х,У, ширина, высота.
-	bool inventory_open = false;
+	Hero hero(150, 150);
+	Animation animation("hero.png", 4, 4, 0, false);
 
+	bool inventory_open = false; //состояние открытого инвентаря 
+	bool sost_walk = true; //состояние движения игрока
+	
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
@@ -63,90 +57,69 @@ int main()
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
-//event инвентарь
+//события инвентарь
 			if (sf::Event::KeyPressed == event.type && sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
-		
-			sitem.setPosition((h.getplayercoordinateX() - inv_texture.getSize().x / 2) +125, (h.getplayercoordinateY() - inv_texture.getSize().y / 2)+11);
 
 				if (inventory_open) {
 					inventory_open = false;
+					sost_walk = true;
 				} else {
 					inventory_open = true;
+					sost_walk = false;
 	
 				}
 			}
 		}
 
-
 //walk and stand
 		bool pressed = false;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			h.dir = LEFT;
-			h.speed = 0.1;
-			CurrentFrame += 0.003 * time;
-			if (CurrentFrame > 4) CurrentFrame -= 4;
-			h.sprite.setTextureRect(sf::IntRect(16 * int(CurrentFrame) + 16, 64, -16, 31));
-			getplayercoordinateforview(h.getplayercoordinateX(), h.getplayercoordinateY());
-			pressed = true;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			h.dir = RIGHT;
-			h.speed = 0.1;
-			CurrentFrame += 0.005*time;
-			if (CurrentFrame > 4) CurrentFrame -= 4;
-			h.sprite.setTextureRect(sf::IntRect(16 * int(CurrentFrame), 64, 16, 31));
-			getplayercoordinateforview(h.getplayercoordinateX(), h.getplayercoordinateY());
-			pressed = true;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			h.dir = BOTTOM;
-			h.speed = 0.1;
-			CurrentFrame += 0.005*time;
-			if (CurrentFrame > 4) CurrentFrame -= 4;
-			h.sprite.setTextureRect(sf::IntRect(16 * int(CurrentFrame), 96, 16, 31));
-			getplayercoordinateforview(h.getplayercoordinateX(), h.getplayercoordinateY());
-			pressed = true;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			h.dir = TOP;
-			h.speed = 0.1;
-			CurrentFrame += 0.005*time;
-			if (CurrentFrame > 4) CurrentFrame -= 4;
-			h.sprite.setTextureRect(sf::IntRect(16 * int(CurrentFrame), 32, 16, 31));
-			getplayercoordinateforview(h.getplayercoordinateX(), h.getplayercoordinateY());
-			pressed = true;
-		}
-		if (!pressed) {
-			h.dir = BOTTOM;
-			h.speed = 0;
-			CurrentFrame += 0.002 * time;
-			if (CurrentFrame > 2) CurrentFrame -= 2;
-			h.sprite.setTextureRect(sf::IntRect(16 * int(CurrentFrame), 0, 16, 31));
-			getplayercoordinateforview(h.getplayercoordinateX(), h.getplayercoordinateY());
-		}
+		if (sost_walk) {
+			getplayercoordinateforview(hero.getplayercoordinateX(), hero.getplayercoordinateY());
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+				hero.dir = LEFT;
+				hero.speed = 0.1;
+				hero.current_anim->update(time);
+				hero.current_anim = new Animation("player.png",4,4,0,false);
+				pressed = true;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+				hero.dir = RIGHT;
+				hero.speed = 0.1;
+				hero.current_anim->update(time);
+				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				pressed = true;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+				hero.dir = BOTTOM;
+				hero.speed = 0.1;
+				hero.current_anim->update(time);
+				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				pressed = true;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+				hero.dir = TOP;
+				hero.speed = 0.1;
+				hero.current_anim->update(time);
+				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				pressed = true;
+			}
+			if (!pressed) {
+				hero.dir = BOTTOM;
+				hero.speed = 0;
+				hero.current_anim->update(time);
+				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
 
-		window.clear();
-
-//draw map
-		for (int i = 0; i < HEIGHT_MAP; i++){
-			for (int j = 0; j < WIDTH_MAP; j++)
-			{
-				if (TileMap[i][j] == 's')  s_map.setTextureRect(sf::IntRect(0, 0, 32, 32));
-
-				s_map.setPosition(j * 32, i * 32);
-				window.draw(s_map);
 			}
 		}
+		window.clear();
 		
-		h.update(time);
-		window.draw(h.sprite); 
-		sprite_inv.setPosition(h.getplayercoordinateX() - inv_texture.getSize().x/2, h.getplayercoordinateY() - inv_texture.getSize().y / 2);
+		hero.update(time);
+		window.draw(hero.current_anim->sprite);
+
 		if (inventory_open) 
 		{ 
-			window.draw(sprite_inv);
-			window.draw(sitem);
+			inventory.drawinventory(sf::Vector2f(hero.getplayercoordinateX(), hero.getplayercoordinateY()), window);
 		}
-
 		window.display(); 
 		window.setView(view);
 	}

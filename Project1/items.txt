@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<items_list> 
+	<item>
+		<id>0</id>
+		<name>pipiska</name>
+		<info>long</name>
+	</item>
+
+	<item> 
+		<id>1</id>
+		<name>ass</name>
+		<info>sweet</name>
+	</item>
+</items_list>
