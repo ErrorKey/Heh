@@ -39,7 +39,7 @@ int main()
 	double CurrentFrame = 0;//хранит текущий кадр
 
 	Hero hero(150, 150);
-	Animation animation("hero.png", 4, 4, 0, false);
+	Animation anim_0 ("player.png", 4, 4, 0, false);
 
 	bool inventory_open = false; //состояние открытого инвентаря 
 	bool sost_walk = true; //состояние движения игрока
@@ -79,35 +79,35 @@ int main()
 				hero.dir = LEFT;
 				hero.speed = 0.1;
 				hero.current_anim->update(time);
-				hero.current_anim = new Animation("player.png",4,4,0,false);
+				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				hero.dir = RIGHT;
 				hero.speed = 0.1;
 				hero.current_anim->update(time);
-				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 				hero.dir = BOTTOM;
 				hero.speed = 0.1;
 				hero.current_anim->update(time);
-				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				hero.dir = TOP;
 				hero.speed = 0.1;
 				hero.current_anim->update(time);
-				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (!pressed) {
 				hero.dir = BOTTOM;
 				hero.speed = 0;
 				hero.current_anim->update(time);
-				hero.current_anim = new Animation("player.png", 4, 4, 0, false);
+				hero.current_anim = &anim_0;
 
 			}
 		}

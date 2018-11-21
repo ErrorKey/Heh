@@ -17,9 +17,10 @@ public:
 		sprite.setTexture(texture);
 		hieght = texture.getSize().x / num_frames;
 		width = texture.getSize().y / line_frames;
-		flip_hor = flip;
-		num_frames = num_fr;
-		num_of_line = num_line;
+		flip =  flip_hor;
+		num_fr =  num_frames;
+		num_line =  num_of_line;
+		sprite.setTextureRect(sf::IntRect(0, width*num_line, hieght, width));
 
 	}
 	void update(float time) {
