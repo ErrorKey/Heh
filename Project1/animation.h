@@ -6,7 +6,7 @@ public:
 	sf::Image image;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	double current_frame;
+	double current_frame = 0;
 	float width, hieght;
 	bool flip;
 	int num_fr, num_line;
@@ -28,9 +28,9 @@ public:
 		if (!flip)
 		{
 			if (current_frame > num_fr) { current_frame -= num_fr; }
-			sprite.setTextureRect(sf::IntRect(hieght*current_frame, width*num_line, hieght, width));
+			sprite.setTextureRect(sf::IntRect(hieght*(int)current_frame, width*num_line, hieght, width));
 		}
 		else
-			sprite.setTextureRect(sf::IntRect(hieght*current_frame + hieght, width*num_line, -hieght, width));
+			sprite.setTextureRect(sf::IntRect(hieght*(int)current_frame + hieght, width*num_line, -hieght, width));
 }
 };

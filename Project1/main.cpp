@@ -36,7 +36,6 @@ int main()
 	Item item2(2);
 	inventory.placeItem(item2);
 	sf::Clock clock; //привязка времени не к процессору, а к машинному времени
-	double CurrentFrame = 0;//хранит текущий кадр
 
 	Hero hero(150, 150);
 	Animation anim_0 ("player.png", 4, 4, 0, false);
@@ -74,39 +73,35 @@ int main()
 //walk and stand
 		bool pressed = false;
 		if (sost_walk) {
+			hero.current_anim = &anim_0;
 			getplayercoordinateforview(hero.getplayercoordinateX(), hero.getplayercoordinateY());
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				hero.dir = LEFT;
 				hero.speed = 0.1;
-				hero.current_anim->update(time);
 				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				hero.dir = RIGHT;
 				hero.speed = 0.1;
-				hero.current_anim->update(time);
 				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 				hero.dir = BOTTOM;
 				hero.speed = 0.1;
-				hero.current_anim->update(time);
 				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				hero.dir = TOP;
 				hero.speed = 0.1;
-				hero.current_anim->update(time);
 				hero.current_anim = &anim_0;
 				pressed = true;
 			}
 			if (!pressed) {
 				hero.dir = BOTTOM;
 				hero.speed = 0;
-				hero.current_anim->update(time);
 				hero.current_anim = &anim_0;
 
 			}
@@ -125,3 +120,9 @@ int main()
 	}
 	return 0;
 }
+//Взаимодействие с solid (плотными телами)
+//Взаимодейтсвие с инвентарём
+//диалоговое окно
+//Различные реакции на нажатия кнопок в зависимости от состояния
+//Массив с индексацией состояний
+//

@@ -28,6 +28,7 @@ void Hero::update(float time)
 	y += dy * time;
 	speed = 0;
 	current_anim->sprite.setPosition(x, y);
+	current_anim->update(time);
 }
 
 float Hero::getplayercoordinateX() {
