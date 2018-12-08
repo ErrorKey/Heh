@@ -46,6 +46,7 @@ Hero::Hero(float X, float Y) {
 	dy = 0;
 	speed = 0;
 	dir = LEFT;
+	sost_life = true;
 	//new создать новый обьект в динамической память вернуть его указатель
 	current_anim = new Animation("player.png", 4, 4, 0, false); 
 }
