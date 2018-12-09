@@ -12,7 +12,7 @@
 int main()
 {
 
-	sf::RenderWindow window(sf::VideoMode(view_width, view_height), "403++");
+	sf::RenderWindow window(sf::VideoMode(view_width, view_height), "403++", sf::Style::Fullscreen);
 	view.reset(sf::FloatRect(0, 0, view_width/2, view_height/2));
 
 	Inventory inventory;
@@ -42,7 +42,6 @@ int main()
 			}
 ///СОБЫТИЕ ИНВЕНТАРЯ
 			if (sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::Tab) {
-				
 				if (sost_inventory_open) {
 					sost_inventory_open = false;
 					sost_null = true;
@@ -59,16 +58,17 @@ int main()
 			}
 		}
 
+///СОСТОЯНИЕ "ИГРЫ"
 		if (sost_null)
 		{
 			hero.event_handle();
 		}
-///СОСТОЯНИЕ "ИГРЫ"
+
 		getplayercoordinateforview(hero.getplayercoordinateX(), hero.getplayercoordinateY());	
 		hero.update(time, map);
 		inventory.cursor_ani->update(time);
 		window.clear(sf::Color::Color(197,159,208,255));
-		map.draw_map(window);
+		map.draw_map(window, time);
 		window.draw(hero.current_anim->sprite);
 		if (sost_inventory_open) 
 		{ 
@@ -79,3 +79,10 @@ int main()
 	}
 	return 0;
 }	
+
+//плотное тело героя
+//дерево диалогов
+
+//NPC: радиус для нажатия X - диалога
+//счётчик кол-ва раз, когда есть диалог 
+//события при 

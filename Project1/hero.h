@@ -2,6 +2,7 @@
 #include "animation.h"
 #include "map.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 enum Direction { //перечисление направленией
 	RIGHT = 0,
@@ -46,10 +47,9 @@ public:
 		current_anim = anim_hero_0;
 	}
 
-	void update(float time, Map & map)
+	void update(float time, Map & map) //реализуем направление и ходьбу
 	{
-
-		switch (dir)//реализуем поведение в зависимости от направления.
+		switch (dir)
 		{
 		case RIGHT:
 			dx = speed;
@@ -112,18 +112,24 @@ public:
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				dir = LEFT;
+				speed = 0.1;
+				current_anim = anim_hero_left;
+				pressed = true;
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))) {
 					dir = CLOCK10;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))) {
 					dir = CLOCK7;
 				}
-				speed = 0.1;
-				current_anim = anim_hero_left;
-				pressed = true;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				dir = RIGHT;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))) {
+					dir = CLOCK2;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))) {
+					dir = CLOCK4;
+				};
 				speed = 0.1;
 				current_anim = anim_hero_right;
 				pressed = true;

@@ -25,7 +25,7 @@ public:
 		sf::Text text;
 
 		sf::Font font;
-		if (!font.loadFromFile("OpenSans.ttf"))
+		if (!font.loadFromFile("fonts\9041.ttf"))
 		{
 			std::cout << "ERROR FONT";
 		}

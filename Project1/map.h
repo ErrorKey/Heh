@@ -1,24 +1,9 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "animation.h"
+#include "hero.h"
+#include "solid.h"
 
-class Solid //плотное тело
-{
-public:
-	sf::Vector2f coord; //координаты обьектов в пространстве
-	sf::RectangleShape rectangle; //"прямоугольник" плотного объекта
-	Animation *animation;
-	Solid(sf::Vector2f _coord, sf::String file) {
-		coord = _coord;
-		animation = new Animation(file, 1, 1, 0, false);
-		rectangle.setSize(sf::Vector2f(animation->texture.getSize()));
-		rectangle.setPosition(coord);
-		animation->sprite.setPosition(coord);
-	}
-	void draw_solid(sf::RenderWindow & window_where) {
-		window_where.draw(animation->sprite);
-	}
-};
 
 class Map {
 public:
@@ -47,15 +32,23 @@ public:
 		TileMap[12] = "<                  >";
 		TileMap[13] = "<           x      >";
 		TileMap[14] = "0[________________]0";
-		list_solids.push_back(new Solid(sf::Vector2f(300.0, 300.0), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(50.0, 20.0), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(500.0, 200.0), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(280.0, 90.0), "fence.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(280.0 - 28, 90.0), "fence.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(310.0, -30.0), "house.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(300.0, 300.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(50.0, 20.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(500.0, 200.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(280.0 - 28, 90.0), sf::Vector2f(28, 6), sf::Vector2f(3, 23), "fence.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(280.0, 90.0), sf::Vector2f(28, 6), sf::Vector2f(3, 23), "fence.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(310.0, -30.0), sf::Vector2f(97, 38), sf::Vector2f(8, 89), "house.png"));
+
+		list_solids.push_back(new Solid(sf::Vector2f(90.0, 80.0), 0));
+		list_solids.push_back(new Solid(sf::Vector2f(512.0, 118.0), 1));
+
+		list_solids.push_back(new Solid(sf::Vector2f(0, 0), sf::Vector2f(32 * WIDTH_MAP, 32)));
+		list_solids.push_back(new Solid(sf::Vector2f(0, 0), sf::Vector2f(32, 32 * HEIGHT_MAP)));
+		list_solids.push_back(new Solid(sf::Vector2f(0, (HEIGHT_MAP - 1) * 32), sf::Vector2f(32 * WIDTH_MAP, 32)));
+		list_solids.push_back(new Solid(sf::Vector2f((WIDTH_MAP - 1) * 32, 0), sf::Vector2f(32, 32 * HEIGHT_MAP))); 
 	}
 
-	void draw_map(sf::RenderWindow& window_where)
+	void draw_map(sf::RenderWindow& window_where, float time_where)
 	{
 		sf::Image map_image;
 		map_image.loadFromFile("images/grass_and_stone.png");
@@ -91,7 +84,7 @@ public:
 			}
 			else
 			{
-				list_solids[i]->draw_solid(window_where);
+				list_solids[i]->draw_solid(window_where, time_where);
 
 			}
 		}

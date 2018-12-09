@@ -5,7 +5,7 @@
 #include "animation.h"
 #include "dialog_window.h"
 
-class CellItem
+class CellItem //€чейка предмета в инвентаре
 {
 public:
 	sf::Vector2f coord; //2f вектор из двух коорд float
@@ -86,7 +86,7 @@ public:
 		 }	
 		 return false;
 	}
-	 void event_handle(sf::Event& event) { //event дл€ проверки кака€ клавиша была нажата
+	 void event_handle(sf::Event& event) { //event дл€ проверки кака€ клавиша была нажата инвентарь
 		 if (event.key.code == sf::Keyboard::Left) { //если была
 			 current_cursor--;
 			 if (current_cursor < 0)

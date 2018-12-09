@@ -33,7 +33,7 @@ public:
 	void infoItem(int ID) {
 		using namespace tinyxml2;
 		XMLDocument doc;
-		doc.LoadFile("items.txt");
+		doc.LoadFile("texts\items.txt");
 		XMLNode* root = doc.FirstChild(); //входим в главный тег
 		XMLElement* item_root = root->FirstChildElement("item");
 		while (item_root != NULL)
