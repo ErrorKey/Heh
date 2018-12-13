@@ -27,8 +27,7 @@ public:
 	Animation * anim_hero_left;
 	Animation * anim_hero_up;
 
-	Animation * anim_npc_1;
-	Animation * anim_npc_2;
+	Solid * solid_hero;
 
 	Hero(float X, float Y) {
 		x = X;
@@ -44,6 +43,7 @@ public:
 		anim_hero_right = new Animation("hero.png", 4, 4, 2, false);
 		anim_hero_left = new Animation("hero.png", 4, 4, 2, true);
 		anim_hero_up = new Animation("hero.png", 4, 4, 3, false);
+
 		current_anim = anim_hero_0;
 	}
 
@@ -88,12 +88,13 @@ public:
 		x += dx * time;
 		y += dy * time;
 		speed = 0;
-		if (map.check_solid(sf::Vector2f(x,y))) 
+		if (map.check_solid(sf::Vector2f(x, y)))
 		{
 			x -= dx * time;
 			y -= dy * time;
 		}
-		current_anim->sprite.setPosition(x- 8, y-32); //смещаем центр персонажа из левого верхнего угла, в "центр" нижнего, для адекватного столкновения с прямоугольниками
+		
+		current_anim->sprite.setPosition(x - 8, y - 32); //смещаем центр персонажа из левого верхнего угла, в "центр" нижнего, для адекватного столкновения с прямоугольниками
 		current_anim->update(time);
 	}
 
@@ -121,7 +122,7 @@ public:
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))) {
 					dir = CLOCK7;
 				}
-			}
+			} else 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				dir = RIGHT;
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))) {
@@ -133,13 +134,13 @@ public:
 				speed = 0.1;
 				current_anim = anim_hero_right;
 				pressed = true;
-			}
+			} else
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 				current_anim = anim_hero_up;
 				dir = BOTTOM;
 				speed = 0.1;
 				pressed = true;
-			}
+			} else 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				dir = TOP;
 				speed = 0.1;

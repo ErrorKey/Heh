@@ -4,7 +4,6 @@
 class Solid //плотное тело
 {
 public:
-	//Создать список текстур, например, дерева с уже описанным прямоугольником
 	sf::Vector2f coord; //координаты обьектов в пространстве
 	sf::RectangleShape rectangle; //"прямоугольник" плотного объекта
 	Animation *animation;
@@ -12,15 +11,14 @@ public:
 		coord = _coord;
 		animation = new Animation(file, 1, 1, 0, false);
 		rectangle.setSize(size_rectangle);
-		//rectangle.setSize(sf::Vector2f(animation->texture.getSize()));
 		rectangle.setPosition(coord + offset_rectangle);
 		animation->sprite.setPosition(coord);
 	}
 	Solid(sf::Vector2f _coord, int num_of_line) { //для NPC
 		coord = _coord;
-		sf::Vector2f offset(3, 28);
+		sf::Vector2f offset(0, 16);
 		animation = new Animation("npc.png", 2, 2, num_of_line, false);
-		rectangle.setSize(sf::Vector2f(10, 5));
+		rectangle.setSize(sf::Vector2f(16, 16));
 		rectangle.setPosition(coord + offset);
 		animation->sprite.setPosition(coord);
 	}
@@ -37,5 +35,9 @@ public:
 		window_where.draw(animation->sprite);
 		animation->update(time_where / 2);
 		//window_where.draw(rectangle); //посмотреть solids
-	}
+	} 
+	void move_solid(sf::Vector2f(_coord)) {
+		coord = _coord;
+		rectangle.setPosition(coord);
+	};
 };

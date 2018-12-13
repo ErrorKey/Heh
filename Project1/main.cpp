@@ -8,6 +8,16 @@
 #include "map.h"
 #include "dialog_window.h"
 #include <iostream>
+#include "npc.h"
+
+std::vector <sf::Drawable *> draw_layers;
+
+enum state {
+	NORM      = 0, //движение игрока
+	INVENTORY = 1, //инвентарь
+	DIALOG    = 2, //диалог
+	DIALOG_SHOW = 3
+} current_state;
 
 int main()
 {
@@ -24,9 +34,10 @@ int main()
 	sf::Vector2f vect;
 	Hero hero(150, 150);
 	Map map;
+	
+	NpcSpace npcspase;
 
-	bool sost_inventory_open = false; //состояние открытого инвентаря 
-	bool sost_null = true; //состояние движения игрока
+	current_state = NORM;
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
@@ -42,26 +53,42 @@ int main()
 			}
 ///СОБЫТИЕ ИНВЕНТАРЯ
 			if (sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::Tab) {
-				if (sost_inventory_open) {
-					sost_inventory_open = false;
-					sost_null = true;
+				if (current_state == INVENTORY) {
+					current_state = NORM;
 				} else {
-					sost_inventory_open = true;
-					sost_null = false;
+					current_state = INVENTORY;
 				}
 			}
 			if (sf::Event::KeyPressed == event.type) {
-				if (sost_inventory_open)
+				if (current_state == INVENTORY)
 				{
 					inventory.event_handle(event);
 				}
 			}
+///СОСТОЯНИЕ ДИАЛОГА
+			if (sf::Event::KeyPressed == event.type && event.key.code == sf::Keyboard::X) {
+				if (current_state == DIALOG) {
+					current_state = NORM;
+				}
+				else {
+					current_state = DIALOG;
+				}
+			}
+			if (sf::Event::KeyPressed == event.type) {
+				if (current_state == DIALOG)
+				{
+					int res = npcspase.check_id(sf::Vector2f(hero.x, hero.y));
+					if (-1 == res)
+						current_state = NORM;
+				}
+			}
+			
 		}
 
 ///СОСТОЯНИЕ "ИГРЫ"
-		if (sost_null)
+		if (current_state == NORM)
 		{
-			hero.event_handle();
+			hero.event_handle(); // передвижение героя
 		}
 
 		getplayercoordinateforview(hero.getplayercoordinateX(), hero.getplayercoordinateY());	
@@ -70,19 +97,19 @@ int main()
 		window.clear(sf::Color::Color(197,159,208,255));
 		map.draw_map(window, time);
 		window.draw(hero.current_anim->sprite);
-		if (sost_inventory_open) 
+		npcspase.draw_npcs(time, window);
+		if (current_state == INVENTORY) 
 		{ 
 			inventory.drawinventory(sf::Vector2f(hero.getplayercoordinateX(), hero.getplayercoordinateY()), window);
+		}
+		if (current_state == DIALOG)
+		{
+			if (-1 != npcspase.current_npc) {
+				npcspase.list_npc[npcspase.current_npc]->draw_npc_text(window, sf::Vector2f(hero.getplayercoordinateX(), hero.getplayercoordinateY()));
+			}
 		}
 		window.display();
 		window.setView(view);
 	}
 	return 0;
 }	
-
-//плотное тело героя
-//дерево диалогов
-
-//NPC: радиус для нажатия X - диалога
-//счётчик кол-ва раз, когда есть диалог 
-//события при 

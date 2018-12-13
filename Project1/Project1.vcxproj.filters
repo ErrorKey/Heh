@@ -47,10 +47,13 @@
     <ClInclude Include="tinyxml2.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="menu.h">
+    <ClInclude Include="solid.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="solid.h">
+    <ClInclude Include="drawing_layers.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="npc.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

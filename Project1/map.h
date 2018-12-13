@@ -32,15 +32,15 @@ public:
 		TileMap[12] = "<                  >";
 		TileMap[13] = "<           x      >";
 		TileMap[14] = "0[________________]0";
-		list_solids.push_back(new Solid(sf::Vector2f(300.0, 300.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(50.0, 20.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(500.0, 200.0), sf::Vector2f(6, 6), sf::Vector2f(21, 58), "tree.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(280.0 - 28, 90.0), sf::Vector2f(28, 6), sf::Vector2f(3, 23), "fence.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(280.0, 90.0), sf::Vector2f(28, 6), sf::Vector2f(3, 23), "fence.png"));
-		list_solids.push_back(new Solid(sf::Vector2f(310.0, -30.0), sf::Vector2f(97, 38), sf::Vector2f(8, 89), "house.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(300.0, 300.0), sf::Vector2f(12, 10), sf::Vector2f(18, 54), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(50.0, 20.0), sf::Vector2f(12, 10), sf::Vector2f(18, 54), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(500.0, 200.0), sf::Vector2f(12, 10), sf::Vector2f(18, 54), "tree.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(280.0 - 28, 90.0), sf::Vector2f(35, 10), sf::Vector2f(-2, 17), "fence.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(280.0, 90.0), sf::Vector2f(35, 10), sf::Vector2f(-2, 17), "fence.png"));
+		list_solids.push_back(new Solid(sf::Vector2f(310.0, -30.0), sf::Vector2f(105, 46), sf::Vector2f(4, 81), "house.png"));
 
-		list_solids.push_back(new Solid(sf::Vector2f(90.0, 80.0), 0));
-		list_solids.push_back(new Solid(sf::Vector2f(512.0, 118.0), 1));
+		//list_solids.push_back(new Solid(sf::Vector2f(90.0, 80.0), 0));
+		//list_solids.push_back(new Solid(sf::Vector2f(512.0, 118.0), 1));
 
 		list_solids.push_back(new Solid(sf::Vector2f(0, 0), sf::Vector2f(32 * WIDTH_MAP, 32)));
 		list_solids.push_back(new Solid(sf::Vector2f(0, 0), sf::Vector2f(32, 32 * HEIGHT_MAP)));

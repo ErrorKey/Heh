@@ -128,12 +128,13 @@
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="dialog_window.h" />
+    <ClInclude Include="drawing_layers.h" />
+    <ClInclude Include="npc.h" />
     <ClInclude Include="solid.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="map.h" />
-    <ClInclude Include="menu.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
