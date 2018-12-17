@@ -1,17 +1,18 @@
 <items_list> 
 	<item>
 		<id>0</id>
-		<name>Berry</name>
+		<name>*Berry*</name>
 		<info>Piece of blueberry. I would not eat this.</info>
 	</item>
 	<item> 
 		<id>1</id>
-		<name>Blueberry stick</name>
-		<info>Cleared from berries and leaves, this could be used as a makeshift weapon.</info>
+		<name>*Blueberry stick*</name>
+		<info>Cleared from berries and leaves, 
+this could be used as a makeshift weapon.</info>
 	</item>
 	<item> 
 		<id>2</id>
-		<name>Blueberry sword</name>
+		<name>*Blueberry sword*</name>
 		<info>My enemies would die... From laugther.</info>
 	</item>
 </items_list>

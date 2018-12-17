@@ -2,20 +2,18 @@
 	<npc>
 		<id>0</id>
 		<name>Zdor</name>
-<text>Hey! Can you bring me some water? It's so hot here ...</text>
-<text>It will be ZDOROVO if you bring me a drink</text>
-<text>Thank you very much! This will help you pass the KURSASCH perfectly!
-*received camouflage*</text>
+<text>Hey! This is a good place</text>
+<text>It will be ZDOROVO if you bring me a drink...Maybe...</text>
+<text>UMmm... This will help you pass the KURSASCH perfectly!</text>
 <text>You are ESCHO ZELENY. I envy you!</text>
 	</npc>
 		<npc>
 		<id>1</id>
-		<name>Vovna</name>
-<text>Just take a beer!
-*received beer*</text>
-<text>No questions!</text>
-<text>Get lost!</text>
-<text>meh!</text>
+		<name>Mekka</name>
+<text>My life is meaningless</text>
+<text>I can't even move</text>
+<text>Why?</text>
+<text>...</text>
 
 	</npc>
 </npc_list>

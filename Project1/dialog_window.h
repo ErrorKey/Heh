@@ -39,5 +39,3 @@ public:
 		window_where.draw(text);
 	};
 };
-
-

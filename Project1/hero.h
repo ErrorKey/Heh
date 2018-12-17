@@ -3,6 +3,7 @@
 #include "map.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "drawing_layers.h"
 
 enum Direction { //перечисление направленией
 	RIGHT = 0,
@@ -107,7 +108,6 @@ public:
 	}
 	void event_handle() //движение персонажа
 	{
-
 		bool pressed = false;
 		if (sost_life) {
 
@@ -156,4 +156,3 @@ public:
 		}
 	}
 };
-

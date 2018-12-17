@@ -1,26 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <map>
 
-extern std::vector <sf::Drawable *> draw_layers;
+extern std::multimap <int,sf::Sprite *> draw_layers;
 
-	void place_to_draw(sf::Vector2f _coord, sf::Drawable* sprite_draw, int num_layer) {
-		float Y = _coord.y;
-		draw_layers[num_layer] = sprite_draw;
-		if (true)
-		{
-
-		}
+void enqueue_drawable( sf::Sprite* sprite_draw, int num_layer) {
+		draw_layers.insert(std::pair<int, sf::Sprite *>(num_layer, sprite_draw));
 	}
 
-// 0 - фон
-// 1 - трава
-// 2, 3 - герой, окружение
-// 4 - инвентарь
-// 5 - предметы инвентаря
-// 6 - курсор инвенторя
-// 7 - диалоговое окно
-// 8 - текст окна
+void draw_queue(sf::RenderWindow &window) {
+	for (auto it = draw_layers.begin(); it != draw_layers.end(); ++it)///вывод на экран
+	{
+		window.draw(*it->second);
+	}
+}
 
-//place_to_draw(sf::Vector(0,0), &Sprite, 1);
-//windows.draw(draw_layers[i])
+
+

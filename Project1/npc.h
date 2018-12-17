@@ -4,6 +4,7 @@
 #include "solid.h"
 #include "dialog_window.h"
 #include "tinyxml2.h"
+#include "drawing_layers.h"
 
 class Npc
 {
@@ -35,8 +36,9 @@ public:
 		animation->update(_time);
 		animation->sprite.setPosition(coord);
 		circle.setPosition(coord - sf::Vector2f(rad / 2, rad / 2));
-		_window.draw(animation->sprite);
 		//_window.draw(circle);
+		enqueue_drawable(&animation->sprite, coord.y);
+		//_window.draw(animation->sprite);
 	}
 
 	void draw_npc_text(sf::RenderWindow &_window, sf::Vector2f _coord_text) {
@@ -86,7 +88,7 @@ public:
 		if (-1 != result) {
 			list_npc[current_npc]->num_text += 1;
 			if (list_npc[current_npc]->num_text > 4) {
-				list_npc[current_npc]->num_text = 4;
+				list_npc[current_npc]->num_text = 1;
 			}
 		}
 		return result;
